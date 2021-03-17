@@ -57,7 +57,7 @@ func(u *UploadedImage) ResizeImage()  {
 		// and preserve aspect ratio
 		m := resize.Resize(u.Width, u.Height, img, resize.Lanczos3)
 
-		out, err := os.Create("temp/test_resized.jpg")
+		out, err := os.Create("temp/test_resized.png")
 		if err != nil {
 			log.Fatal(err)
 		}
