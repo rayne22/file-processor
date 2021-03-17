@@ -6,10 +6,12 @@ import (
 
 func main()  {
 	r := process.UploadedImage{
-		Name:   "123.png",
-		Width:  500,
-		Height: 500,
+		Name:   "",
+		Width:  0,
+		Height: 0,
+		Path: "temp",
 	}
+
 
 	r.ResizeImage()
 }

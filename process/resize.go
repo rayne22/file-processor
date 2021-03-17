@@ -6,10 +6,13 @@ import (
 	"image/png"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
+	"time"
 )
 
 type UploadedImage struct {
+	Path string `json:"path"`
 	Name string `json:"name"`
 	Width uint `json:"width"`
 	Height uint `json:"height"`
@@ -18,6 +21,8 @@ type UploadedImage struct {
 func(u *UploadedImage) ResizeImage()  {
 
 	s := strings.Split(u.Name, ".")
+
+	path := CreateDir(u.Path)
 
 	// open image
 	file, err := os.Open(u.Name)
@@ -38,7 +43,7 @@ func(u *UploadedImage) ResizeImage()  {
 		// and preserve aspect ratio
 		m := resize.Resize(u.Width, u.Height, img, resize.Lanczos3)
 
-		out, err := os.Create("temp/" + u.Name)
+		out, err := os.Create(path + u.Name)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -57,7 +62,7 @@ func(u *UploadedImage) ResizeImage()  {
 		// and preserve aspect ratio
 		m := resize.Resize(u.Width, u.Height, img, resize.Lanczos3)
 
-		out, err := os.Create("temp/" +u.Name)
+		out, err := os.Create(path +u.Name)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -68,6 +73,18 @@ func(u *UploadedImage) ResizeImage()  {
 
 
 	}
+}
 
-	
+// basePath is a fixed directory path
+func CreateDir(basePath string) (dataString string) {
+	folderName := time.Now().Format("2006-01-02")
+	folderPath := filepath.Join(basePath, folderName)
+	if _, err := os.Stat(folderPath); os.IsNotExist(err) {
+		// must be divided into two steps
+		// Create folder first
+		os.Mkdir(folderPath, 0777)
+		// modify permissions again
+		os.Chmod(folderPath, 0777)
+	}
+	return folderPath
 }
