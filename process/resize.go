@@ -46,7 +46,7 @@ func(u *UploadedImage) ResizeImage()  {
 
 		// write new image to file
 		jpeg.Encode(out, m, nil)
-	} else if s[1] == "png" {
+	} else if s[1] == "png" || s[1] == "PNG" {
 		img, err := png.Decode(file)
 		if err != nil {
 			log.Fatal(err)
