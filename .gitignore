@@ -1,3 +1,7 @@
 *.log
 *.idea
 *.vscode
+!temp
+*.PNG
+*.png
+*.jpg
