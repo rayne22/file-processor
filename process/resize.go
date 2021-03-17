@@ -1,6 +1,7 @@
 package process
 
 import (
+	"fmt"
 	"github.com/nfnt/resize"
 	"image/jpeg"
 	"image/png"
@@ -8,7 +9,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 )
 
 type UploadedImage struct {
@@ -23,6 +23,9 @@ func(u *UploadedImage) ResizeImage()  {
 	s := strings.Split(u.Name, ".")
 
 	path := CreateDir(u.Path)
+
+	fmt.Println("TET", path)
+
 
 	// open image
 	file, err := os.Open(u.Name)
@@ -77,8 +80,8 @@ func(u *UploadedImage) ResizeImage()  {
 
 // basePath is a fixed directory path
 func CreateDir(basePath string) (dataString string) {
-	folderName := time.Now().Format("2006-01-02")
-	folderPath := filepath.Join(basePath, folderName)
+	//folderName := time.Now().Format("2006-01-02")
+	folderPath := filepath.Join(basePath, "/")
 	if _, err := os.Stat(folderPath); os.IsNotExist(err) {
 		// must be divided into two steps
 		// Create folder first
@@ -86,5 +89,7 @@ func CreateDir(basePath string) (dataString string) {
 		// modify permissions again
 		os.Chmod(folderPath, 0777)
 	}
-	return folderPath
+
+	result := folderPath + "/"
+	return result
 }

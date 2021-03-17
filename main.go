@@ -6,7 +6,7 @@ import (
 
 func main()  {
 	r := process.UploadedImage{
-		Name:   "",
+		Name:   "123.PNG",
 		Width:  0,
 		Height: 0,
 		Path: "temp",
