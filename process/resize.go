@@ -65,6 +65,8 @@ func(u *UploadedImage) ResizeImage()  {
 
 		// write new image to file
 		_ = png.Encode(out, m)
+
+
 	}
 
 	
