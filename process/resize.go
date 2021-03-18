@@ -33,9 +33,8 @@ func(u *UploadedImage) ResizeImage()  {
 		log.Fatal(err)
 	}
 
-	// decode image.Image
-
 	if s[1] == "jpg" || s[1] == "jpeg" || s[1] == "jpe" || s[1] == "jif" || s[1] == "jfif" || s[1] == "jfi" {
+		// decode image.Image
 		img, err := jpeg.Decode(file)
 		if err != nil {
 			log.Fatal(err)
@@ -80,16 +79,13 @@ func(u *UploadedImage) ResizeImage()  {
 
 // basePath is a fixed directory path
 func CreateDir(basePath string) (dataString string) {
-	//folderName := time.Now().Format("2006-01-02")
 	folderPath := filepath.Join(basePath, "/")
 	if _, err := os.Stat(folderPath); os.IsNotExist(err) {
-		// must be divided into two steps
 		// Create folder first
 		os.Mkdir(folderPath, 0777)
 		// modify permissions again
 		os.Chmod(folderPath, 0777)
 	}
-
 	result := folderPath + "/"
 	return result
 }
