@@ -6,7 +6,6 @@ import (
 	"image/png"
 	"log"
 	"mime/multipart"
-	"net/http"
 	_ "net/http"
 	"os"
 	"path/filepath"
