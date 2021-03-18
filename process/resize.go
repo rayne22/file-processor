@@ -1,80 +1,138 @@
 package process
 
 import (
-	"fmt"
 	"github.com/nfnt/resize"
 	"image/jpeg"
 	"image/png"
 	"log"
+	"mime/multipart"
+	"net/http"
+	_ "net/http"
 	"os"
 	"path/filepath"
 	"strings"
 )
 
 type UploadedImage struct {
-	Path string `json:"path"`
-	Name string `json:"name"`
-	Width uint `json:"width"`
-	Height uint `json:"height"`
+	Path      string `json:"path"`
+	ImageName string `json:"image_name"`
+	Width     uint   `json:"width"`
+	Height    uint   `json:"height"`
+	Request   multipart.File
 }
 
-func(u *UploadedImage) ResizeImage()  {
+func(u *UploadedImage) ResizeImage()  (imagePath string) {
 
-	s := strings.Split(u.Name, ".")
+	s := strings.Split(u.ImageName, ".")
 
 	path := CreateDir(u.Path)
 
-	fmt.Println("TET", path)
+	imagePath = path + u.ImageName
+
+	if u.Request != nil {
+		file := u.Request
+
+		if s[1] == "jpg" || s[1] == "jpeg" || s[1] == "jpe" || s[1] == "jif" || s[1] == "jfif" || s[1] == "jfi" {
+			// decode image.Image
+			img, err := jpeg.Decode(file)
+			if err != nil {
+				log.Fatal(err)
+			}
+			file.Close()
+
+			// resize
+			// and preserve aspect ratio
+			m := resize.Resize(u.Width, u.Height, img, resize.Lanczos3)
+
+			out, err := os.Create(path + u.ImageName)
+			if err != nil {
+				log.Fatal(err)
+			}
+			defer out.Close()
+
+			// write new image to file
+			_ = jpeg.Encode(out, m, nil)
+		} else if s[1] == "png" || s[1] == "PNG" {
+			img, err := png.Decode(file)
+			if err != nil {
+				log.Fatal(err)
+			}
+			file.Close()
+
+			// resize to width 1000 using Lanczos resampling
+			// and preserve aspect ratio
+			m := resize.Resize(u.Width, u.Height, img, resize.Lanczos3)
+
+			out, err := os.Create(path +u.ImageName)
+			if err != nil {
+				log.Fatal(err)
+			}
+			defer out.Close()
+
+			// write new image to file
+			_ = png.Encode(out, m)
 
 
-	// open image
-	file, err := os.Open(u.Name)
-	if err != nil {
-		log.Fatal(err)
+		}
+
+	} else {
+
+		// open image
+		file, err := os.Open(u.ImageName)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		if s[1] == "jpg" || s[1] == "jpeg" || s[1] == "jpe" || s[1] == "jif" || s[1] == "jfif" || s[1] == "jfi" {
+			// decode image.Image
+			img, err := jpeg.Decode(file)
+			if err != nil {
+				log.Fatal(err)
+			}
+			file.Close()
+
+			// resize
+			// and preserve aspect ratio
+			m := resize.Resize(u.Width, u.Height, img, resize.Lanczos3)
+
+			out, err := os.Create(path + u.ImageName)
+			if err != nil {
+				log.Fatal(err)
+			}
+			defer out.Close()
+
+			// write new image to file
+			_ = jpeg.Encode(out, m, nil)
+		} else if s[1] == "png" || s[1] == "PNG" {
+			img, err := png.Decode(file)
+			if err != nil {
+				log.Fatal(err)
+			}
+			file.Close()
+
+			// resize to width 1000 using Lanczos resampling
+			// and preserve aspect ratio
+			m := resize.Resize(u.Width, u.Height, img, resize.Lanczos3)
+
+			out, err := os.Create(path +u.ImageName)
+			if err != nil {
+				log.Fatal(err)
+			}
+			defer out.Close()
+
+			// write new image to file
+			_ = png.Encode(out, m)
+
+
+		}
 	}
 
-	if s[1] == "jpg" || s[1] == "jpeg" || s[1] == "jpe" || s[1] == "jif" || s[1] == "jfif" || s[1] == "jfi" {
-		// decode image.Image
-		img, err := jpeg.Decode(file)
-		if err != nil {
-			log.Fatal(err)
-		}
-		file.Close()
-
-		// resize
-		// and preserve aspect ratio
-		m := resize.Resize(u.Width, u.Height, img, resize.Lanczos3)
-
-		out, err := os.Create(path + u.Name)
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer out.Close()
-
-		// write new image to file
-		_ = jpeg.Encode(out, m, nil)
-	} else if s[1] == "png" || s[1] == "PNG" {
-		img, err := png.Decode(file)
-		if err != nil {
-			log.Fatal(err)
-		}
-		file.Close()
-
-		// resize to width 1000 using Lanczos resampling
-		// and preserve aspect ratio
-		m := resize.Resize(u.Width, u.Height, img, resize.Lanczos3)
-
-		out, err := os.Create(path +u.Name)
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer out.Close()
-
-		// write new image to file
-		_ = png.Encode(out, m)
+	return imagePath
+}
 
 
-	}
+func Process() {
+
 }
 
 // basePath is a fixed directory path
@@ -89,3 +147,4 @@ func CreateDir(basePath string) (dataString string) {
 	result := folderPath + "/"
 	return result
 }
+
