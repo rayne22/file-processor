@@ -18,9 +18,10 @@ type UploadedImage struct {
 	Width     uint   `json:"width"`
 	Height    uint   `json:"height"`
 	Request   multipart.File
+	ImageHeader multipart.FileHeader
 }
 
-func(u *UploadedImage) ResizeImage()  (imagePath string) {
+func(u *UploadedImage, ) ResizeImage()  (imagePath string) {
 
 	s := strings.Split(u.ImageName, ".")
 
