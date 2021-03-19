@@ -23,14 +23,17 @@ type UploadedImage struct {
 
 func(u *UploadedImage, ) ResizeImage()  (imagePath string) {
 
-	s := strings.Split(u.ImageName, ".")
+
 
 	path := CreateDir(u.Path)
 
-	imagePath = path +"/" + u.ImageName
+
 
 	if u.Request != nil {
 		file := u.Request
+		s := strings.Split(u.ImageHeader.Filename, ".")
+
+		imagePath = path +"/" + u.ImageHeader.Filename
 
 		if s[1] == "jpg" || s[1] == "jpeg" || s[1] == "jpe" || s[1] == "jif" || s[1] == "jfif" || s[1] == "jfi" {
 			// decode image.Image
@@ -44,7 +47,7 @@ func(u *UploadedImage, ) ResizeImage()  (imagePath string) {
 			// and preserve aspect ratio
 			m := resize.Resize(u.Width, u.Height, img, resize.Lanczos3)
 
-			out, err := os.Create(path + u.ImageName)
+			out, err := os.Create(path + u.ImageHeader.Filename)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -63,7 +66,7 @@ func(u *UploadedImage, ) ResizeImage()  (imagePath string) {
 			// and preserve aspect ratio
 			m := resize.Resize(u.Width, u.Height, img, resize.Lanczos3)
 
-			out, err := os.Create(path +u.ImageName)
+			out, err := os.Create(path +u.ImageHeader.Filename)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -76,6 +79,8 @@ func(u *UploadedImage, ) ResizeImage()  (imagePath string) {
 		}
 
 	} else {
+		s := strings.Split(u.ImageName, ".")
+		imagePath = path +"/" + u.ImageName
 
 		// open image
 		file, err := os.Open(u.ImageName)
