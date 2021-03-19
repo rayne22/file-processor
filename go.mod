@@ -1,4 +1,4 @@
-module github.com/rayne22/image-processor
+module github.com/rayne22/file-processor
 
 go 1.15
 
