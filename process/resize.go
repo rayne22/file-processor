@@ -33,7 +33,7 @@ func(u *UploadedImage, ) ResizeImage()   string {
 		file := u.Request
 		s := strings.Split(u.ImageHeader.Filename, ".")
 
-		imagePath = path +"/" + u.ImageHeader.Filename
+		imagePath = path + u.ImageHeader.Filename
 
 		if s[1] == "jpg" || s[1] == "jpeg" || s[1] == "jpe" || s[1] == "jif" || s[1] == "jfif" || s[1] == "jfi" {
 			// decode image.Image
@@ -80,7 +80,7 @@ func(u *UploadedImage, ) ResizeImage()   string {
 
 	} else {
 		s := strings.Split(u.ImageName, ".")
-		imagePath = path +"/" + u.ImageName
+		imagePath = path + u.ImageName
 
 		// open image
 		file, err := os.Open(u.ImageName)

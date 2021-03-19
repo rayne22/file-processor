@@ -20,7 +20,7 @@ Easy right...
 This package needs at least Go 1.15.6 Import package with
 
 ```go
-import "github.com/rayne22/image-processor"
+import "github.com/rayne22/file-processor/process"
 
 ````
 
