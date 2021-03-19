@@ -21,9 +21,9 @@ type UploadedImage struct {
 	ImageHeader *multipart.FileHeader
 }
 
-func(u *UploadedImage, ) ResizeImage()  (imagePath string) {
+func(u *UploadedImage, ) ResizeImage()   string {
 
-
+	var imagePath string
 
 	path := CreateDir(u.Path)
 
