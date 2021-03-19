@@ -21,11 +21,13 @@ type UploadedImage struct {
 	ImageHeader multipart.FileHeader
 }
 
-func(u *UploadedImage, ) ResizeImage()  (imagePath *os.File) {
+func(u *UploadedImage, ) ResizeImage()  (imagePath string) {
 
 	s := strings.Split(u.ImageName, ".")
 
 	path := CreateDir(u.Path)
+
+	imagePath = path +"/" + u.ImageName
 
 	if u.Request != nil {
 		file := u.Request
@@ -121,7 +123,7 @@ func(u *UploadedImage, ) ResizeImage()  (imagePath *os.File) {
 			// write new image to file
 			_ = png.Encode(out, m)
 
-			imagePath = out
+
 
 
 		}
@@ -146,4 +148,5 @@ func CreateDir(basePath string) (dataString string) {
 	result := folderPath + "/"
 	return result
 }
+
 
