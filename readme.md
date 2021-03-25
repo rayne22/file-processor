@@ -3,7 +3,8 @@
 A GO library for manipulating and processing images
 
 [![Build Status]()]()
-[![GoDoc]()]()
+[![GoDoc](https://pkg.go.dev/badge/github.com/rayne22/file-processor)](https://pkg.go.dev/github.com/rayne22/file-processor)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Prerequisites
 

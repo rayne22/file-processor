@@ -13,21 +13,19 @@ import (
 )
 
 type UploadedImage struct {
-	Path      string `json:"path"`
-	ImageName string `json:"image_name"`
-	Width     uint   `json:"width"`
-	Height    uint   `json:"height"`
-	Request   multipart.File
+	Path        string `json:"path"`
+	ImageName   string `json:"image_name"`
+	Width       uint   `json:"width"`
+	Height      uint   `json:"height"`
+	Request     multipart.File
 	ImageHeader *multipart.FileHeader
 }
 
-func(u *UploadedImage, ) ResizeImage()   string {
+func (u *UploadedImage) ResizeImage() string {
 
 	var imagePath string
 
 	path := CreateDir(u.Path)
-
-
 
 	if u.Request != nil {
 		file := u.Request
@@ -39,7 +37,7 @@ func(u *UploadedImage, ) ResizeImage()   string {
 			// decode image.Image
 			img, err := jpeg.Decode(file)
 			if err != nil {
-				log.Println("JPEG Decode Error",err)
+				log.Println("JPEG Decode Error", err)
 			}
 			file.Close()
 
@@ -58,7 +56,7 @@ func(u *UploadedImage, ) ResizeImage()   string {
 		} else if s[1] == "png" || s[1] == "PNG" {
 			img, err := png.Decode(file)
 			if err != nil {
-				log.Println("PNG Decode Error",err)
+				log.Println("PNG Decode Error", err)
 			}
 			file.Close()
 
@@ -66,7 +64,7 @@ func(u *UploadedImage, ) ResizeImage()   string {
 			// and preserve aspect ratio
 			m := resize.Resize(u.Width, u.Height, img, resize.Lanczos3)
 
-			out, err := os.Create(path +u.ImageHeader.Filename)
+			out, err := os.Create(path + u.ImageHeader.Filename)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -74,7 +72,6 @@ func(u *UploadedImage, ) ResizeImage()   string {
 
 			// write new image to file
 			_ = png.Encode(out, m)
-
 
 		}
 
@@ -92,7 +89,7 @@ func(u *UploadedImage, ) ResizeImage()   string {
 			// decode image.Image
 			img, err := jpeg.Decode(file)
 			if err != nil {
-				log.Println("JPEG Decode Error",err)
+				log.Println("JPEG Decode Error", err)
 			}
 			file.Close()
 
@@ -111,7 +108,7 @@ func(u *UploadedImage, ) ResizeImage()   string {
 		} else if s[1] == "png" || s[1] == "PNG" {
 			img, err := png.Decode(file)
 			if err != nil {
-				log.Println("PNG Decode Error",err)
+				log.Println("PNG Decode Error", err)
 			}
 			file.Close()
 
@@ -119,7 +116,7 @@ func(u *UploadedImage, ) ResizeImage()   string {
 			// and preserve aspect ratio
 			m := resize.Resize(u.Width, u.Height, img, resize.Lanczos3)
 
-			out, err := os.Create(path +u.ImageName)
+			out, err := os.Create(path + u.ImageName)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -128,18 +125,11 @@ func(u *UploadedImage, ) ResizeImage()   string {
 			// write new image to file
 			_ = png.Encode(out, m)
 
-
-
-
 		}
 	}
 
-
-
 	return imagePath
 }
-
-
 
 // basePath is a fixed directory path
 func CreateDir(basePath string) (dataString string) {
@@ -153,5 +143,3 @@ func CreateDir(basePath string) (dataString string) {
 	result := folderPath + "/"
 	return result
 }
-
-

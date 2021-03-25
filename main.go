@@ -1,6 +1,6 @@
 package main
 
-func main()  {
+func main() {
 	//r := process.UploadedImage{
 	//	ImageName:   "123.PNG",
 	//	Width:  0,
