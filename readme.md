@@ -8,7 +8,7 @@ A GO library for manipulating and processing images
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Prerequisites
-
+This package needs at least Go `1.15.6`
 
 ## Installation
 
@@ -19,7 +19,7 @@ A GO library for manipulating and processing images
 Easy right...
 
 ## Usage
-This package needs at least Go 1.15.6 Import package with
+ Import package using
 
 ```go
 import "github.com/rayne22/file-processor/process"
