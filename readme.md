@@ -40,7 +40,7 @@ type UploadedImage struct {
 }
 
 ##### Function
-func (u *UploadedImage) ResizeImage() string {}
+func (u *UploadedImage) ResizeImage() string 
 
 #### Example
 
