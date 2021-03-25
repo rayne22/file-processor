@@ -30,6 +30,8 @@ import "github.com/rayne22/file-processor/process"
 - `process.ResizeImage` produces a scaled image based on the width and height provided using the interpolation. If there is need to preserve the aspect ratio, the width or height can be set to 0.
 
 #####  Struct
+
+````go
 type UploadedImage struct {
 	Path        string `json:"path"`
 	ImageName   string `json:"image_name"`
@@ -38,9 +40,13 @@ type UploadedImage struct {
 	Request     multipart.File
 	ImageHeader *multipart.FileHeader
 }
+````
 
 ##### Function
+
+````go
 func (u *UploadedImage) ResizeImage() string 
+````
 
 #### Example
 
