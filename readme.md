@@ -1,4 +1,4 @@
-# Image Processor
+# File Processor
 
 A GO library for manipulating and processing images
 

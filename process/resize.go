@@ -131,7 +131,7 @@ func (u *UploadedImage) ResizeImage() string {
 	return imagePath
 }
 
-// basePath is a fixed directory path
+// creating a base path
 func CreateDir(basePath string) (dataString string) {
 	folderPath := filepath.Join(basePath, "/")
 	if _, err := os.Stat(folderPath); os.IsNotExist(err) {
