@@ -2,4 +2,5 @@ language: go
 
 go:
   - 1.x
-  - main
+  - 1.11.x
+  - master
