@@ -8,6 +8,7 @@ A GO library for manipulating and processing images
 [![GoDoc](https://pkg.go.dev/badge/github.com/rayne22/file-processor)](https://pkg.go.dev/github.com/rayne22/file-processor)
 [![Gitter](https://badges.gitter.im/go-thots/community.svg)](https://gitter.im/go-thots/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frayne22%2Ffile-processor.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Frayne22%2Ffile-processor?ref=badge_shield)
 
 ## Prerequisites
 This package needs at least Go `1.15.6`
@@ -77,3 +78,6 @@ Please make sure to update tests as appropriate.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frayne22%2Ffile-processor.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Frayne22%2Ffile-processor?ref=badge_large)
