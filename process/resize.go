@@ -43,7 +43,7 @@ func (u *UploadedImage) ResizeImage() string {
 
 			// resize
 			// and preserve aspect ratio
-			m := resize.Resize(u.Width, u.Height, img, resize.Bicubic)
+			m := resize.Resize(u.Width, u.Height, img, resize.NearestNeighbor)
 
 			out, err := os.Create(path + u.ImageHeader.Filename)
 			if err != nil {
